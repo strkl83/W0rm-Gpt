@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+*.log
+
+# Virtual env
+venv/
+.venv/
+env/
+ENV/
+*.env
+
+# Tokens & config (secrets)
+token.key
+wormgpt_config.json
+.env
+token.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Legacy wrapper
+_main_wrapper.py
+
+# Build artifacts
+build.log
+wormgpt
+wormgpt.spec
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/

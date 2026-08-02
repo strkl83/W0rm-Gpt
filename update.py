@@ -1,32 +1,46 @@
-# colors 
-r = "\033[1;31m"
-g = "\033[1;32m"
-y = "\033[1;33m"
-b = "\033[1;34m"
-d = "\033[2;37m"
-R = "\033[1;41m"
-Y = "\033[1;43m"
-B = "\033[1;44m"
-w = "\033[1;37m"
-g = "\033[0;90m"
-y = r
+#!/usr/bin/env python3
+"""
+Safe updater for W0rm-GPT
+Previous version used `rm -rf main.py` + wget which is unsafe.
+This version uses git and pip to update safely.
+"""
 
-#----------------modules
-from os import system,name
-from time import sleep
+import os
+import sys
+import subprocess
+from pathlib import Path
 
+def run(cmd, shell=False):
+    print(f"$ {' '.join(cmd) if isinstance(cmd, list) else cmd}")
+    try:
+        result = subprocess.run(cmd, shell=shell, check=True)
+        return result.returncode == 0
+    except subprocess.CalledProcessError as e:
+        print(f"[!] Command failed: {e}")
+        return False
+    except FileNotFoundError:
+        print(f"[!] Command not found: {cmd}")
+        return False
 
-# -----clear 
-system('cls' if name=='nt' else 'clear')
+def main():
+    print("=== W0rm-GPT Safe Updater ===")
+    root = Path(__file__).parent
 
-#-------update
+    # Check if git repo
+    if (root / ".git").exists():
+        print("[*] Git repo detected. Pulling latest...")
+        run(["git", "fetch", "origin"])
+        # Don't auto merge hard; try pull with rebase safe
+        run(["git", "pull", "--rebase", "origin", "main"])
+    else:
+        print("[!] Not a git repository. Skipping git pull.")
+        print("    To update manually: git clone https://github.com/samay825/W0rm-Gpt")
 
-system('rm -rf main.py')
-sleep(0.1)
+    print("\n[*] Updating Python dependencies...")
+    pip_cmd = [sys.executable, "-m", "pip", "install", "-r", str(root / "requirements.txt"), "--upgrade"]
+    run(pip_cmd)
 
-system('wget https://raw.githubusercontent.com/samay825/W0rm-Gpt/main/main.py')
-print(r+"└─ "+w+"\033[1;37m>> Script Updated <<")
-sleep(0.5)
+    print("\n[✓] Update finished. Run: python3 main.py")
 
-# ---------return to main.py file 
-system('python main.py' if name=='nt' else 'python3 main.py')
+if __name__ == "__main__":
+    main()
