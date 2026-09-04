@@ -19,8 +19,8 @@ files.
 Use the project **Run** button, or start it from the Shell:
 
 ```bash
-python3 main.py --health
-python3 main.py
+bash start.sh --health
+bash start.sh
 ```
 
 To enable live responses, set an API key in the environment. The key is not
@@ -28,7 +28,7 @@ stored by this project:
 
 ```bash
 export OPENAI_API_KEY="your-key"
-python3 main.py --once "Explain what this project does."
+bash start.sh --once "Explain what this project does."
 ```
 
 OpenRouter is the default provider. To use another OpenAI-compatible provider:
@@ -36,8 +36,12 @@ OpenRouter is the default provider. To use another OpenAI-compatible provider:
 ```bash
 export OPENAI_API_BASE="https://provider.example/v1"
 export OPENAI_MODEL="provider-model"
-python3 main.py
+bash start.sh
 ```
+
+The single `start.sh` script checks for Python 3.10+, installs any active
+entries in `requirements.txt`, and forwards all arguments to the CLI. The
+current build has no third-party runtime dependencies.
 
 ## Verify
 
