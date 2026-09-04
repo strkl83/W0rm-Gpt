@@ -1,2 +1,2 @@
-run = "python3 main.py"
+run = "bash start.sh"
 modules = ["python-base-3.13"]
