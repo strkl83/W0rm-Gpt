@@ -1,101 +1,48 @@
-<h1 align="center">W0rm-GPT<br>
-</h1>
-<img src="W0rmgptv2.png" alt="Paris" class="center">
-* `📱 💀`<br />
-* `A W0rm-GPT for termux `
+# W0rm-GPT safe build
 
-## Disclaimer
-*This tool is for educational purposes only !*
-_Don't use this to take revenge_<br />
-*I will not be responsible for any misuse*
+This is a clean, runnable replacement for the original wrapper in the
+`W0rm-Gpt` repository.
 
-## About
-* `Unlimited Questions prompt`
-* `Cross Platform`
-* `Supports newest Android also`
-* `No balance will be deducted to ask`
-* `Working Apis`
-* `No missing Api issues,`
-* `Working with all Operators/Carriers`
+## What changed
 
-## Tested On :
-<ul>
-  <li>Termux</li>
-</ul>
+- Removed the dependency on the opaque `main.cpython-311.so` module.
+- Removed the download-and-execute updater behavior.
+- Added a small CLI with explicit configuration and error handling.
+- Added support for OpenAI and OpenAI-compatible chat-completion APIs.
+- Added local health checks and tests that do not make network requests.
 
-## Termux Issue:
-* `Termux App is no longer recieving updates on playstore`
-* `due to recently introduced Google Play policy `
-<br>
+The program never executes downloaded code and never deletes or replaces local
+files.
 
-DON'T WORRY
-* `We have a solution for that !`
-<br>
+## Run
 
+Use the project **Run** button, or start it from the Shell:
 
-You can download the latest termux app and install it
-
-From here <a href="https://f-droid.org/repo/com.termux_118.apk">Link</a>
-
-## Usage
-
-
-
-#### For Termux
-
-Update the packages
 ```bash
-pkg up -y
-```
-Install some dependencies
-```bash
-pkg install git wget python -y
-```
-Clone the repository
-```bash
-git clone https://github.com/samay825/W0rm-Gpt
-```
-Go to the W0rm-Gpt directory
-```bash
-cd W0rm-Gpt
-```
-Now Install the Requirements 
-```bash
-pip install -r requirements.txt
-```
-Run the script
-```bash
+python3 main.py --health
 python3 main.py
 ```
 
+To enable live responses, set an API key in the environment. The key is not
+stored by this project:
 
-## Get the Token
+```bash
+export OPENAI_API_KEY="your-key"
+python3 main.py --once "Explain what this project does."
+```
 
-You'll get that in the telegram channel !
+OpenRouter is the default provider. To use another OpenAI-compatible provider:
 
-## Version
-* `v2.0 W0rm-Gpt`
+```bash
+export OPENAI_API_BASE="https://provider.example/v1"
+export OPENAI_MODEL="provider-model"
+python3 main.py
+```
 
-## Features
-* `Can do anything you want !!`
+## Verify
 
-* `All Ai chatbot and all questions will be answered in goodflow`
+```bash
+python3 -m unittest -v
+```
 
-## Note
-* `This ChatW0rm-Gpt is mainly to get knowledge not for other purposes!`
-
-## Licence
-Apache 2.0 © Samay825
-
-
-## Contact Us
-* `If you have any feedback or queries`
-* `Instagram: @sincryptzork`
-* `Telegram: @sincryptzork`
-
-## Telegram Channel
-
-* `All updates of Team Sincryption will be posted here >> t.me/TeamSincryption`
-
-<a href="https://t.me/TeamSincryption">
-         <img src="https://smartiblogster.com/wp-content/uploads/2021/03/smartiblogster-iblogster-join-telegram-channel.png">
+No API key is needed for the health check or tests.
