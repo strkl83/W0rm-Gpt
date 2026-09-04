@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>W0rm-GPT Safe Build — Design System</title>
+    <style>
+      :root {
+        --ink-950: #0a0e12;
+        --ink-900: #11171d;
+        --ink-800: #182129;
+        --ink-700: #26323b;
+        --ink-500: #70808b;
+        --ink-200: #c9d4d8;
+        --paper: #eff5f2;
+        --mint: #65e6b0;
+        --mint-soft: #a3f4d0;
+        --amber: #f2c66d;
+        --red: #f28b8b;
+        --sans: Inter, ui-sans-serif, system-ui, sans-serif;
+        --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        color: var(--paper);
+        background: var(--ink-950);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 56px 24px 80px; }
+      .eyebrow, code, .mono { font-family: var(--mono); }
+      .eyebrow { color: var(--mint); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+      h1 { max-width: 760px; margin: 12px 0 16px; font-size: clamp(38px, 7vw, 72px); line-height: .98; letter-spacing: -.055em; }
+      h2 { margin: 0 0 18px; font-size: 20px; letter-spacing: -.02em; }
+      .lede { max-width: 650px; color: var(--ink-200); font-size: 18px; }
+      .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; margin-top: 48px; }
+      .panel { grid-column: span 6; padding: 24px; background: var(--ink-900); border: 1px solid var(--ink-700); border-radius: 16px; box-shadow: 0 18px 50px rgba(0,0,0,.24); }
+      .wide { grid-column: span 12; }
+      .swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+      .swatch { min-height: 84px; padding: 10px; display: flex; flex-direction: column; justify-content: end; border-radius: 8px; color: var(--paper); font: 11px var(--mono); }
+      .ink950 { background: var(--ink-950); border: 1px solid var(--ink-700); }
+      .ink900 { background: var(--ink-900); }
+      .ink800 { background: var(--ink-800); }
+      .ink700 { background: var(--ink-700); }
+      .mint { background: var(--mint); color: var(--ink-950); }
+      .amber { background: var(--amber); color: var(--ink-950); }
+      .status-row { display: flex; flex-wrap: wrap; gap: 10px; }
+      .status { display: inline-flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 999px; background: var(--ink-800); font: 12px var(--mono); }
+      .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+      .connected { color: var(--mint); }
+      .attention { color: var(--amber); }
+      .error { color: var(--red); }
+      .demo { padding: 20px; background: var(--ink-950); border: 1px solid var(--ink-700); border-radius: 10px; }
+      .message { max-width: 80%; padding: 14px 16px; margin: 10px 0; border-radius: 10px; }
+      .message small { display: block; margin-bottom: 5px; color: var(--ink-500); font: 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+      .user { margin-left: auto; background: var(--ink-800); }
+      .assistant { border-left: 3px solid var(--mint); background: var(--ink-900); }
+      .composer { display: flex; gap: 10px; margin-top: 16px; }
+      input { min-width: 0; flex: 1; padding: 13px 14px; color: var(--paper); background: var(--ink-800); border: 1px solid var(--ink-700); border-radius: 8px; font: 14px var(--mono); }
+      button { padding: 12px 16px; border: 0; border-radius: 8px; color: var(--ink-950); background: var(--mint); font-weight: 700; cursor: pointer; }
+      button:focus-visible, input:focus-visible { outline: 3px solid var(--mint-soft); outline-offset: 2px; }
+      .note { color: var(--ink-200); font-size: 14px; }
+      @media (max-width: 720px) { .panel, .wide { grid-column: span 12; } .swatches { grid-template-columns: repeat(3, 1fr); } .composer { flex-direction: column; } }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <div class="eyebrow">W0rm-GPT / safe build / design system 1.0</div>
+      <h1>Make the boundary visible.</h1>
+      <p class="lede">A focused visual language for a transparent assistant: precise enough for technical work, calm enough to trust, and explicit about configuration and network state.</p>
+      <section class="grid" aria-label="Design system examples">
+        <article class="panel">
+          <h2>Signal palette</h2>
+          <div class="swatches">
+            <div class="swatch ink950">ink-950</div>
+            <div class="swatch ink900">ink-900</div>
+            <div class="swatch ink800">ink-800</div>
+            <div class="swatch ink700">ink-700</div>
+            <div class="swatch mint">mint-500</div>
+            <div class="swatch amber">amber-400</div>
+          </div>
+        </article>
+        <article class="panel">
+          <h2>Connection states</h2>
+          <div class="status-row">
+            <span class="status connected"><i class="dot"></i>Connected</span>
+            <span class="status attention"><i class="dot"></i>Not configured</span>
+            <span class="status error"><i class="dot"></i>Error</span>
+          </div>
+          <p class="note">State is always written as text; color is supporting information.</p>
+        </article>
+        <article class="panel wide">
+          <h2>Conversation surface</h2>
+          <div class="demo">
+            <div class="message user"><small>You</small>Explain how this client handles missing credentials.</div>
+            <div class="message assistant"><small>Assistant</small>It reports that no network request was made and tells you to configure the key. It never displays the key itself.</div>
+            <div class="composer">
+              <input aria-label="Prompt example" value="Ask a clear question..." readonly />
+              <button type="button">Send prompt</button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
