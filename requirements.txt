@@ -1,3 +1,5 @@
-# The safe build uses Python's standard library only.
-# An OpenAI SDK is intentionally not required; the API boundary is explicit
-# and works with OpenAI-compatible endpoints.
+# Runtime: Python 3.10+
+#
+# No third-party packages are required. The client uses Python's standard
+# library so the API boundary stays explicit and the start script remains
+# self-contained.
