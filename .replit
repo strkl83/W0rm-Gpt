@@ -1,0 +1,2 @@
+run = "python3 main.py"
+modules = ["python-base-3.13"]
